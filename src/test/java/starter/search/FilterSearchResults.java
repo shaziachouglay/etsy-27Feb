@@ -16,8 +16,13 @@ import static starter.search.JobType.*;
 
 public class FilterSearchResults implements Performable {
 
+    public FilterSearchResults(JobType jobType) {
+        this.jobType = jobType;
+    }
+    public FilterSearchResults(){}
+
     public static Performable bySelecting(JobType jobType) {
-        return new FilterSearchResults();
+        return new FilterSearchResults(jobType);
     }
     static Map<JobType, By> JOB_TYPE_BUTTONS = new HashMap<>();
     static {

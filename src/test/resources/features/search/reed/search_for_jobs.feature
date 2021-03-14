@@ -13,9 +13,9 @@
     @current
 
       Scenario Outline: Filter search results by job type
-        Given Danny has already performed search for a job by type of job 'Teacher' and location 'London'
-        When he filters the search result using filter of job type
-        Then he should be able to see jobs search results containing "<Job Type>"
+        Given Danny has already performed search for a job by type of job <What> and location <Where>
+        When he filters the search result using filter of <Job Type>
+        Then he should be able to see jobs search results containing <Job Type>
         Examples:
           | Job Type |What|Where|
           |Permanent |Teacher|London|

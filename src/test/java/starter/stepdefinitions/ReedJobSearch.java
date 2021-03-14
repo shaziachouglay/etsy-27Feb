@@ -51,24 +51,27 @@ public class ReedJobSearch {
     }
 
 
-    @Given("^(.*) has already performed search for a job by type of job '(.*)' and location '(.*)'$")
-    public void dannyHasAlreadyPerformedSearchForAJobByTypeOfJobAndLocation(String actorName,String jobType, String location) {
-        OnStage.theActor(actorName).attemptsTo(
+    @Given("^(.*) has already performed search for a job by type of job (.*) and location (.*)$")
+    public void dannyHasAlreadyPerformedSearchForAJobByTypeOfJobAndLocation(String actor,String jobType, String location) {
+        OnStage.theActor(actor).attemptsTo(
                 NavigateTo.theReedHomePage(),
                 SearchForJobs.using(jobType,location));
     }
 
-    @When("he filters the search result using filter of job type")
-    public void heFiltersTheSearchResultUsingFilterOfJobType() {
+
+    @When("^he filters the search result using filter of (.*)$")
+    public void heFiltersTheSearchResultUsingFilterOfJobType(JobType jobType) {
         OnStage.theActorInTheSpotlight().attemptsTo(
-                FilterSearchResults.bySelecting(JobType.Permanent)
+                FilterSearchResults.bySelecting(jobType)
         );
     }
+    @Then("^he should be able to see jobs search results containing (.*)$")
+    public void heShouldBeAbleToSeeJobsSearchResultsContainingJobType(String expectedResult) {
+        List<String> displayedFilteredResult = OnStage.theActorInTheSpotlight()
+                .asksFor(ReedJobSearchResults.filteredResult());
+        assertThat(displayedFilteredResult).allMatch(
+                result-> result.toLowerCase().contains(expectedResult.toLowerCase())
+        );
 
-
-    @Then("he should be able to see jobs search results containing {string}")
-    public void heShouldBeAbleToSeeJobsSearchResultsContaining(String arg0) {
     }
-
-
 }
