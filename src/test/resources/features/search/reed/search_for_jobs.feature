@@ -10,7 +10,6 @@
         | What    | Where  |
         | Teacher | London |
 
-    @current
 
       Scenario Outline: Filter search results by job type
         Given Danny has already performed search for a job by type of job <What> and location <Where>
